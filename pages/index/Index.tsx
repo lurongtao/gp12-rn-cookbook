@@ -34,6 +34,17 @@ export default class Index extends Component<Props, State> {
   constructor(props) {
     super(props)
   }
+
+  static navigationOptions = {
+    title: 'Home',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  }
   
   state: State = {
     selectedTab: 'home'
