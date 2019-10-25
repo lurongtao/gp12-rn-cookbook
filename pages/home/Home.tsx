@@ -17,34 +17,11 @@ interface Props {
   store?: any
 }
 interface State {
-  hotCate?: Array<object>
+  hotCate?: Array<object>,
+  top10?: Array<object>
 }
 
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: '#fff',
-  },
-  containerHorizontal: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 170,
-  },
-  containerVertical: {
-    flexGrow: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 170,
-  },
-  text: {
-    color: '#fff',
-    fontSize: 36,
-  },
-  slideImg: {
-    height: 170,
-    width: '100%'
-  }
-});
+import styles from './styleHome.js'
 
 @inject('store')
 @observer
@@ -54,7 +31,33 @@ class Home extends Component<Props, State> {
   }
 
   state = {
-    hotCate: []
+    hotCate: [],
+    top10: []
+  }
+
+  renderCarousel(el, index) {
+    return (
+      <View style={styles.container}>
+        {el.icon ? <Image style={styles.gridImg} source={{uri: el.icon}}></Image> : null}
+        <Text style={styles.gridText}>{el.text}</Text>
+      </View>
+    )
+  }
+
+  renderTop10(el, index) {
+    return (
+      <View style={styles.top10Container}>
+        <Image style={styles.gridTop10Img} source={{uri: el.icon}}></Image>
+        <View>
+          <Text style={styles.gridTop10Title}>{el.text}</Text>
+          <Text style={styles.gridTop10Desc}>{el.text}</Text>
+        </View>
+      </View>
+    )
+  }
+
+  handlePress() {
+
   }
 
   render() {    
@@ -83,8 +86,16 @@ class Home extends Component<Props, State> {
         <Grid
           data={this.state.hotCate}
           columnNum={3}
-          isCarousel
-          onPress={(_el, index) => alert(index)}
+          hasLine={false}
+          renderItem={this.renderCarousel}
+          onPress={this.handlePress.bind(this)}
+        />
+        <Grid
+          data={this.state.hotCate}
+          columnNum={2}
+          hasLine={false}
+          renderItem={this.renderTop10}
+          onPress={this.handlePress.bind(this)}
         />
       </ScrollView>
     )
@@ -95,8 +106,30 @@ class Home extends Component<Props, State> {
     this.props.store.setList(list)
 
     let hotCate = await get('http://dev.gp12.cn:9000/api/hot_category')
+
+    hotCate.push({
+      img: '',
+      title: '更多...'
+    })
+
+    let mapedHotCate = hotCate.map((value) => {
+      return {
+        icon: value.img,
+        text: value.title
+      }
+    })
+
+    let mapedTop10 = this.props.store.list.slice(0, 10).map((value, index) => {
+      return {
+        img: value.img,
+        all_click: value.all_click,
+        favorites: value.favorites
+      }
+    })
+
     this.setState({
-      hotCate
+      hotCate: mapedHotCate,
+      top10: mapedTop10
     })
   }
 }
