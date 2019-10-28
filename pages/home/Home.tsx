@@ -10,6 +10,7 @@ import HotCate from './HotCate'
 import Top10 from './Top10'
 
 interface Props {
+  navigation?: any
 }
 
 interface State {

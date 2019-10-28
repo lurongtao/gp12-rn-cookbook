@@ -10,7 +10,7 @@ import {
 import Home from '../home/Home'
 
 interface Props {
-  
+  navigation?: any
 }
 
 interface State {

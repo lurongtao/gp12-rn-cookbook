@@ -24,7 +24,7 @@ export default class Swiper extends Component<Props, State> {
   state = {}
 
   async componentDidMount() {
-    let list = await get('http://192.168.43.82:9000/api/list')
+    let list = await get('http://dev.gp12.cn:9000/api/list')
     this.props.store.setList(list)
   }
 

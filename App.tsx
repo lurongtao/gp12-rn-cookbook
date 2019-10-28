@@ -6,21 +6,39 @@ import { Provider } from 'mobx-react'
 import store from './store/'
 
 import Index from './pages/index/Index'
+import HotList from './pages/list/List'
 
 import {View, Text, StatusBar} from 'react-native'
 
-function App() {
-  return (
-    <Provider store={store}>
-      <Index></Index>
-    </Provider>
-  )
+function StackNavigator(Comp) {
+  return (props) => {
+    return (
+      <Provider store={store} navigation={props.navigation}>
+        <Comp></Comp>
+      </Provider>
+    )
+  }
 }
 
+// function Home(props) {
+//   return (
+//     <Provider store={store} navigation={props.navigation}>
+//       <Index></Index>
+//     </Provider>
+//   )
+// }
+
+// function List(props) {
+//   return (
+//     <Provider store={store} navigation={props.navigation}>
+//       <HotList></HotList>
+//     </Provider>
+//   )
+// }
+
 const AppNavigator = createStackNavigator({
-  Home: {
-    screen: App,
-  },
+  Home: StackNavigator(Index),
+  List: StackNavigator( HotList )
 }, {
   initialRouteName: 'Home',
   defaultNavigationOptions: {
@@ -33,8 +51,6 @@ const AppNavigator = createStackNavigator({
       fontWeight: 'bold',
     },
   }
-});
+})
 
 export default createAppContainer(AppNavigator)
-
-// export default App
