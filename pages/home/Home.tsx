@@ -16,7 +16,8 @@ interface State {
 }
 
 class Home extends Component<Props, State> {
-  render() {    
+
+  render() {
     return (
       <ScrollView>
         <Swiper></Swiper>

@@ -30,7 +30,7 @@ export default class HotCate extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    let hotCate = await get('http://dev.gp12.cn:9000/api/hot_category')
+    let hotCate = await get('http://192.168.43.82:9000/api/hot_category')
 
     hotCate.push({
       img: '',

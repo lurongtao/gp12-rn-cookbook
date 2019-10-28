@@ -4,7 +4,7 @@ import TabNavigator from 'react-native-tab-navigator'
 import * as Device from 'expo-device'
 
 import {
-  Image, View, Text
+  Image, View, Text, StatusBar
 } from 'react-native'
 
 import Home from '../home/Home'
@@ -34,17 +34,6 @@ export default class Index extends Component<Props, State> {
   constructor(props) {
     super(props)
   }
-
-  static navigationOptions = {
-    title: 'Home',
-    headerStyle: {
-      backgroundColor: '#f4511e',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  }
   
   state: State = {
     selectedTab: 'home'
@@ -52,7 +41,8 @@ export default class Index extends Component<Props, State> {
 
   render() {
     return (
-      <View style={Device.deviceName === 'iPhone Xʀ' ? styles.layout : null}>
+      <View style={ styles.layout }>
+        <StatusBar backgroundColor="blue" barStyle="light-content" />
         <TabNavigator 
           style={Device.deviceName === 'iPhone Xʀ' ? styles.navigator : null}
         >
