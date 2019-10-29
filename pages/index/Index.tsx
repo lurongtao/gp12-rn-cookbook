@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 
 import Home from '../home/Home'
+import Map from '../map/Map'
 
 interface Props {
   navigation?: any
@@ -71,7 +72,7 @@ export default class Index extends Component<Props, State> {
             renderIcon={() => <Img source={location} />}
             renderSelectedIcon={() => <Img source={locationActive} />}
             onPress={() => this.setState({ selectedTab: 'map' })}>
-            {<View><Text>aa</Text></View>}
+            {<Map></Map>}
           </TabNavigator.Item>
           <TabNavigator.Item
             selected={this.state.selectedTab === 'profile'}
