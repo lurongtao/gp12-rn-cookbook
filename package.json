@@ -12,6 +12,7 @@
     "babel-plugin-import": "^1.12.2",
     "customize-cra": "^0.8.0",
     "expo": "34.0.1",
+    "expo-camera": "~6.0.0",
     "expo-device": "^1.0.0",
     "mobx": "5.13.0",
     "mobx-react": "5.4.3",

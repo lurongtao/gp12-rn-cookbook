@@ -3496,6 +3496,14 @@ expo-asset@~6.0.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-camera@~6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npm.taobao.org/expo-camera/download/expo-camera-6.0.0.tgz#74db78874f87de7adcd63db0e96591c331fefd28"
+  integrity sha1-dNt4h0+H3nrc1j2w6WWRwzH+/Sg=
+  dependencies:
+    lodash "^4.6.0"
+    prop-types "^15.6.0"
+
 expo-constants@~6.0.0:
   version "6.0.0"
   resolved "https://registry.npm.taobao.org/expo-constants/download/expo-constants-6.0.0.tgz#ff4598985ba006e24949be3f05be7429e5bedacf"

@@ -8,6 +8,9 @@ class Store {
   @observable
   list = []
 
+  @observable
+  isShow = true
+
   @computed
   get top10() {
     return this.list.slice(0, 10).map((value, index) => {
@@ -24,6 +27,12 @@ class Store {
   setList(data) {
     this.list = data
   }
+
+  @action.bound
+  setVisible(status) {
+    this.isShow = status
+  }
+  
 }
 
 export default new Store()

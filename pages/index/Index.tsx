@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import TabNavigator from 'react-native-tab-navigator'
+import { observer, inject } from 'mobx-react'
 
 import * as Device from 'expo-device'
 
 import {
-  Image, View, Text, StatusBar
+  Image, View, Text, StatusBar, AsyncStorage
 } from 'react-native'
 
 import Home from '../home/Home'
 import Map from '../map/Map'
+import Profile from '../profile/Profile'
 
 interface Props {
-  navigation?: any
+  navigation?: any,
+  store?: any
 }
 
 interface State {
@@ -30,14 +33,20 @@ import moreActive from '../../assets/images/more-active.png'
 import { Img } from './styledIndex.js'
 import styles from './styleIndex.js'
 
-
+@inject('store')
+@observer
 export default class Index extends Component<Props, State> {
   constructor(props) {
     super(props)
   }
   
   state: State = {
-    selectedTab: 'home'
+    selectedTab: 'profile'
+  }
+
+  async componentDidMount() {
+    let isShow = await AsyncStorage.getItem('isShow')
+    this.props.store.setVisible(JSON.parse(isShow))
   }
 
   render() {
@@ -65,15 +74,22 @@ export default class Index extends Component<Props, State> {
             onPress={() => this.setState({ selectedTab: 'category' })}>
             {<View><Text>aa</Text></View>}
           </TabNavigator.Item>
-          <TabNavigator.Item
-            selected={this.state.selectedTab === 'map'}
-            title="地图"
-            selectedTitleStyle={{color: '#000'}}
-            renderIcon={() => <Img source={location} />}
-            renderSelectedIcon={() => <Img source={locationActive} />}
-            onPress={() => this.setState({ selectedTab: 'map' })}>
-            {<Map></Map>}
-          </TabNavigator.Item>
+          {
+            this.props.store.isShow
+              ? (
+                <TabNavigator.Item
+                  selected={this.state.selectedTab === 'map'}
+                  title="地图"
+                  selectedTitleStyle={{color: '#000'}}
+                  renderIcon={() => <Img source={location} />}
+                  renderSelectedIcon={() => <Img source={locationActive} />}
+                  onPress={() => this.setState({ selectedTab: 'map' })}>
+                  <Map></Map>
+                </TabNavigator.Item>
+              )
+              : null
+          }
+          
           <TabNavigator.Item
             selected={this.state.selectedTab === 'profile'}
             title="更多"
@@ -81,7 +97,7 @@ export default class Index extends Component<Props, State> {
             renderIcon={() => <Img source={more} />}
             renderSelectedIcon={() => <Img source={moreActive} />}
             onPress={() => this.setState({ selectedTab: 'profile' })}>
-            {<View><Text>aa</Text></View>}
+            <Profile></Profile>
           </TabNavigator.Item>
         </TabNavigator>
       </View>
